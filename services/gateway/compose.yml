@@ -24,6 +24,10 @@ services:
       - 127.0.0.1:${EPICS_CA_SERVER_PORT}:${EPICS_CA_SERVER_PORT}
       - 127.0.0.1:${EPICS_CA_REPEATER_PORT}:${EPICS_CA_REPEATER_PORT}
 
+    environment:
+      EPICS_CA_SERVER_PORT: ${EPICS_CA_SERVER_PORT}
+      EPICS_CA_REPEATER_PORT: ${EPICS_CA_REPEATER_PORT}
+
     restart: unless-stopped
 
     networks:

@@ -18,19 +18,28 @@ fi
 # to allow multiple compose beamlines to run on the same host.
 # BASE values should be separated by 20.
 #
-BASE=5064
+BASE=5094
 #
 export EPICS_CA_SERVER_PORT=$BASE # defaults to 5064
-export EPICS_CA_REPEATER_PORT=$(($BASE+1)) # defaults to 5065
-export EPICS_PVA_SERVER_PORT=$(($BASE+11)) # defaults to 5075
+export EPICS_CA_REPEATER_PORT=$(( $BASE + 1 )) # defaults to 5065
+export EPICS_PVA_SERVER_PORT=$(( $BASE + 11 )) # defaults to 5075
 
-export CA_SUBNET=170.$(($BASE % 256)).0.0/16
-export CA_BROADCAST=170.$(($BASE % 256)).255.255
+export CA_SUBNET=170.$(( $BASE % 256 )).0.0/16
+export CA_BROADCAST=170.$(( $BASE % 256 )).255.255
 
 export EPICS_PVA_NAME_SERVERS=localhost:${EPICS_PVA_SERVER_PORT}
 export EPICS_CA_NAME_SERVERS=localhost:${EPICS_CA_SERVER_PORT}
 
 export EPICS_CA_ADDR_LIST=127.0.0.1
+
+# update configuration files that depend on the above environment variables
+cat services/phoebus/config/settings.template |
+  sed -e "s/5064/$EPICS_CA_SERVER_PORT/g" \
+      -e "s/5065/$EPICS_CA_REPEATER_PORT/g" \
+      -e "s/5075/$EPICS_PVA_SERVER_PORT/g" > services/phoebus/config/settings.ini
+cat services/pvagw/config/pvagw.template |
+  sed -e "s/172.20.255.255/$CA_BROADCAST/g" \
+      -e "s/5075/$EPICS_PVA_SERVER_PORT/g" > services/pvagw/config/pvagw.config
 
 # if there is a docker-compose module then load it
 if [[ $(module avail docker-compose 2>/dev/null) != "" ]] ; then
@@ -47,7 +56,6 @@ else
     unset DOCKER_HOST
     docker=docker
 fi
-
 echo using $docker as container engine
 
 # ensure local container users can access X11 server

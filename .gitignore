@@ -9,3 +9,8 @@ venv*
 # and is created at runtime by IOCs using PVI
 opi/auto-generated/*
 !opi/auto-generated/README.md
+
+# these files are generated from templates
+# when sourcing environment.sh
+services/pvagw/config/pvagw.config
+services/phoebus/config/settings.ini

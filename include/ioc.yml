@@ -26,6 +26,9 @@ services:
       IOC_LOCATION: localhost
       BEAMLINE: bl01t
       IOC_GROUP: bl01t
+      EPICS_CA_SERVER_PORT: ${EPICS_CA_SERVER_PORT}
+      EPICS_CA_REPEATER_PORT: ${EPICS_CA_REPEATER_PORT}
+      EPICS_PVA_SERVER_PORT: ${EPICS_PVA_SERVER_PORT}
 
     tty: true
     stdin_open: true
