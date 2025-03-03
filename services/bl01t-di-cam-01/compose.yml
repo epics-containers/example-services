@@ -6,7 +6,7 @@ services:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.1
+    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.2
 
     labels:
       version: 0.1.0
