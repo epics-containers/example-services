@@ -21,6 +21,9 @@ services:
 
     command: /epics/ioc/start.sh
 
+    ports:
+      - 8080
+
     configs:
       - source: bl01t-di-cam-01_config
         target: epics/ioc/config
