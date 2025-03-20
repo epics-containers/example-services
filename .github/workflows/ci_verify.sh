@@ -33,6 +33,7 @@ do
 
         # This will fail and exit if the ioc.yaml is invalid
         $docker run --rm --entrypoint bash \
+            --security-opt label=disable \
             -v ${service}/config:/config \
             -v ${runtime}:/epics/runtime \
             ${image} \

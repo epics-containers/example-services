@@ -40,6 +40,7 @@ export UIDGID=$USER_ID:$USER_GID
 # default to the test profile for docker compose
 export COMPOSE_PROFILES=test
 # for test profile our ca-gateway publishes PVS on the loopback interface
-export EPICS_CA_ADDR_LIST=127.0.0.1:5094
+export EPICS_CA_NAME_SERVERS=127.0.0.1:5094
+export EPICS_PVA_NAME_SERVERS=127.0.0.1:5095
 # make a short alias for docker-compose for convenience
-alias dc='$docker compose'
+alias dc="$docker compose"
