@@ -10,7 +10,11 @@ venv*
 opi/auto-generated/*
 !opi/auto-generated/README.md
 
+autosave/*
+!autosave/.placeholder
+
 # these files are generated from templates
 # when sourcing environment.sh
 services/pvagw/config/pvagw.config
 services/phoebus/config/settings.ini
+

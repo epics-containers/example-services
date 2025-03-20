@@ -28,9 +28,6 @@ include:
   # deploy profile only
   - services/epics-opis/compose.yml
 
-volumes:
-  autosave:
-
 services:
   init:
     image: ubuntu

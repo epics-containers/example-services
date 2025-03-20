@@ -16,14 +16,6 @@ services:
       IOC_NAME: bl01t-ea-test-01
       IOC_PREFIX: BL01T-EA-TEST-01
 
-    volumes:
-      - ../../opi/auto-generated/bl01t-ea-test-01:/epics/opi
-      - type: volume
-        source: autosave
-        target: /autosave
-        volume:
-          subpath: bl01t-ea-test-01
-
     configs:
       - source: bl01t-ea-test-01_config
         target: epics/ioc/config
