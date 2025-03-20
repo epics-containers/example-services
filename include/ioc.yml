@@ -17,9 +17,6 @@ services:
     security_opt:
       - label=disable
 
-    volumes:
-      - autosave:/autosave
-
     # NOTE: blank environment vars should be overriden in individual IOCs
     environment:
       IOCSH_PS1:

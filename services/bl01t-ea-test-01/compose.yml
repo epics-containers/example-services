@@ -18,6 +18,11 @@ services:
 
     volumes:
       - ../../opi/auto-generated/bl01t-ea-test-01:/epics/opi
+      - type: volume
+        source: autosave
+        target: /autosave
+        volume:
+          subpath: bl01t-ea-test-01
 
     configs:
       - source: bl01t-ea-test-01_config

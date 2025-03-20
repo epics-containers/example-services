@@ -17,6 +17,11 @@ services:
 
     volumes:
       - ../../opi/auto-generated/bl01t-mo-sim-01:/epics/opi
+      - type: volume
+        source: autosave
+        target: /autosave
+        volume:
+          subpath: bl01t-mo-sim-01
 
     configs:
       - source:  bl01t-mo-sim-01_config
