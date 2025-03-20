@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-motorsim/releases/download/2024.9.1/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-motorsim/releases/download/2025.3.1/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 
@@ -11,6 +11,11 @@ entities:
 
   - type: devIocStats.iocAdminSoft
     IOC: "{{ ioc_name | upper }}"
+
+  - type: pvlogging.PvLogging
+
+  - type: autosave.Autosave
+    P: "BL01T-MO-SIM-01:"
 
   - type: motorSim.simMotorController
     controllerName: sim-controller1

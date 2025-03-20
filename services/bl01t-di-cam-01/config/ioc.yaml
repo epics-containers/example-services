@@ -7,6 +7,9 @@ entities:
   - type: devIocStats.iocAdminSoft
     IOC: "{{ ioc_name | upper }}"
 
+  - type: autosave.Autosave
+    P: "BL01T-DI-CAM-01:"
+
   - type: ADSimDetector.simDetector
     PORT: DET.DET
     P: BL01T-DI-CAM-01
@@ -57,7 +60,7 @@ entities:
     NDARRAY_PORT: DET.PROC
     TYPE: Int8
     NELEMENTS: 1048576
-    FTVL: CHAR
+    FTVL: UCHAR
 
   - type: ADCore.NDStats
     PORT: DET.STAT
