@@ -7,7 +7,7 @@ services:
   pvagw: &pvagw
     container_name: pvagw
 
-    image: ghcr.io/epics-containers/gateways-developer:2024.12.3
+    image: ghcr.io/epics-containers/gateways-runtime:2024.12.3
 
     depends_on:
       - init

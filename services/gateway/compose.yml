@@ -13,7 +13,7 @@ services:
 
     container_name: ca-gateway
 
-    image: ghcr.io/epics-containers/gateways-developer:2024.12.3
+    image: ghcr.io/epics-containers/gateways-runtime:2024.12.3
 
     security_opt:
       - label=disable
@@ -48,19 +48,6 @@ services:
     profiles:
       - test
       - dev
-
-  # debugging version of gateway container #####################################
-  ca-gateway-debug:
-
-    container_name: ca-gateway-debug
-
-    <<: *ca-gateway
-
-    # this image is not distroless and has network tools installed
-    image: ghcr.io/epics-containers/docker-ca-gateway-debug:2.1.3ec1
-
-    profiles:
-      - debug
 
   # per server ca-gateway for deployment #######################################
   ca-gateway-deploy:
