@@ -6,7 +6,7 @@ services:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-motorsim-runtime:2024.9.1
+    image: ghcr.io/epics-containers/ioc-motorsim-runtime:2025.3.1
 
     labels:
       version: 0.1.0
@@ -17,10 +17,7 @@ services:
 
     volumes:
       - ../../opi/auto-generated/bl01t-mo-sim-01:/epics/opi
-
-    configs:
-      - source:  bl01t-mo-sim-01_config
-        target: epics/ioc/config
+      - ../../autosave/bl01t-mo-sim-01:/autosave
 
 configs:
   bl01t-mo-sim-01_config:

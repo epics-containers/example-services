@@ -6,10 +6,13 @@ services:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.2
+    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.3
 
     labels:
       version: 0.1.0
+
+    ports:
+      - 8080:8080/tcp
 
     environment:
       IOCSH_PS1: bl01t-di-cam-01 >
@@ -18,6 +21,7 @@ services:
 
     volumes:
       - ../../opi/auto-generated/bl01t-di-cam-01:/epics/opi
+      - ../../autosave/bl01t-di-cam-01:/autosave
 
     command: /epics/ioc/start.sh
 

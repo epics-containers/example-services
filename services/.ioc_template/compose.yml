@@ -1,6 +1,6 @@
 services:
 
-  replace_me:
+  ioc_default_name:
 
     extends:
       service: linux_ioc
@@ -12,18 +12,18 @@ services:
       version: 0.1.0
 
     environment:
-      IOCSH_PS1: replace_me >
-      IOC_NAME: replace_me
+      IOCSH_PS1: ioc_default_name >
+      IOC_NAME: ioc_default_name
 
     volumes:
-      - ../../opi/auto-generated/replace_me:/epics/opi
+      - ../../opi/auto-generated/ioc_default_name:/epics/opi
 
     configs:
-      - source: replace_me_config
+      - source: ioc_default_name_config
         target: epics/ioc/config
 
 configs:
-  replace_me_config:
+  ioc_default_name_config:
     file: ./config
 
 include:

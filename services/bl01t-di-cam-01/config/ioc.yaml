@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adsimdetector/releases/download/2025.3.1b1/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adsimdetector/releases/download/2025.3.3/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 description: Example simulated camera for BL01T
@@ -6,6 +6,9 @@ description: Example simulated camera for BL01T
 entities:
   - type: devIocStats.iocAdminSoft
     IOC: "{{ ioc_name | upper }}"
+
+  - type: autosave.Autosave
+    P: "BL01T-DI-CAM-01:"
 
   - type: ADSimDetector.simDetector
     PORT: DET.DET
@@ -24,6 +27,12 @@ entities:
       dbpf BL01T-DI-CAM-01:ROI:EnableCallbacks 1
       dbpf BL01T-DI-CAM-01:PVA:EnableCallbacks 1
       dbpf BL01T-DI-CAM-01:DET:Acquire 1
+
+  - type: ffmpegServer.ffmpegStream
+    PORT: DET.MJP
+    P: BL01T-DI-CAM-01
+    R: ":MJP:"
+    NDARRAY_PORT: DET.DET
 
   - type: ADCore.NDROI
     PORT: DET.ROI
@@ -51,7 +60,7 @@ entities:
     NDARRAY_PORT: DET.PROC
     TYPE: Int8
     NELEMENTS: 1048576
-    FTVL: CHAR
+    FTVL: UCHAR
 
   - type: ADCore.NDStats
     PORT: DET.STAT
