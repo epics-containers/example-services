@@ -11,6 +11,9 @@ services:
     labels:
       version: 0.1.0
 
+    ports:
+      - 8080:8080/tcp
+
     environment:
       IOCSH_PS1: bl01t-di-cam-01 >
       IOC_NAME: bl01t-di-cam-01
@@ -21,9 +24,6 @@ services:
       - ../../autosave/bl01t-di-cam-01:/autosave
 
     command: /epics/ioc/start.sh
-
-    ports:
-      - 8080
 
     configs:
       - source: bl01t-di-cam-01_config

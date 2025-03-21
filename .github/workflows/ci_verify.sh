@@ -37,7 +37,7 @@ do
             -v ${service}/config:/config \
             -v ${runtime}:/epics/runtime \
             ${image} \
-            -c 'ibek runtime generate /config/ioc.yaml /epics/ibek-defs/*'
+            -c 'ibek runtime generate /config/ioc.yaml /epics/ibek-defs/*.ibek.support.yaml'
         # show the startup script we just generated (and verify it exists)
         cat  ${runtime}/st.cmd
 
