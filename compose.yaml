@@ -33,7 +33,7 @@ services:
     image: ubuntu
     security_opt:
       - label=disable
-    restart: never
+    restart: no
     volumes:
       - .:/workspace
     command: /bin/bash -c "/workspace/include/init.sh"
