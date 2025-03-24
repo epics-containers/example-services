@@ -74,7 +74,7 @@ entities:
   - type: ADCore.NDFileHDF5
     PORT: DET.HDF
     P: BL01T-DI-CAM-01
-    R: ":HDF:"
+    R: ":HDF5:"
     NDARRAY_PORT: DET.PROC
 
   - type: ADCore.NDFileTIFF
