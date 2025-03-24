@@ -43,6 +43,8 @@ services:
     networks:
       - channel_access
 
+    platform: linux/amd64
+
   # proxy services that each manage an RTEMS hard IOC ##########################
   rtems_ioc:
     # use an alias to copy all of the linux_ioc spec
