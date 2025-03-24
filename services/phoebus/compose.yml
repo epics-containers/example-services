@@ -35,6 +35,8 @@ services:
       - source: phoebus_config
         target: /config
 
+    platform: linux/amd64
+
     profiles:
       - test
       - dev

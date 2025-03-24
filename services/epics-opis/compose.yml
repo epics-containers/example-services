@@ -18,5 +18,7 @@ services:
     volumes:
       - ../opi:/opi
 
+    platform: linux/amd64
+
     profiles:
       - deploy

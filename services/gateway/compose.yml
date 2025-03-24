@@ -45,6 +45,8 @@ services:
         -cip ${CA_BROADCAST} -pvlist /config/pvlist
         -access /config/access -log /dev/stdout -debug 1
 
+    platform: linux/amd64
+
     profiles:
       - test
       - dev

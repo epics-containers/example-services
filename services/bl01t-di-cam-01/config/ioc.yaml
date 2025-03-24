@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adsimdetector/releases/download/2025.3.3/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adsimdetector/releases/download/2025.3.4/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 description: Example simulated camera for BL01T
@@ -96,3 +96,9 @@ entities:
     R: ":ROISTAT:"
     NDARRAY_PORT: DET.PROC
     MAX_ROIS: 4
+
+  - type: ADCore.NDFileNetCDF
+    PORT: DET.CDF
+    P: BL01T-DI-CAM-01
+    R: ":NCDF:"
+    NDARRAY_PORT: DET.DET

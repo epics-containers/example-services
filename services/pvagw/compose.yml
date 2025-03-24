@@ -36,6 +36,8 @@ services:
       - /config/pvagw.config
       - --debug
 
+    platform: linux/amd64
+
     profiles:
       - test
       - dev
