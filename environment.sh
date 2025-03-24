@@ -21,8 +21,9 @@ fi
 # podman vs docker differences.
 if podman version &> /dev/null && [[ -z $USE_DOCKER ]] ; then
     USER_ID=0; USER_GID=0
-    DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock
+    export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
     docker=podman
+    alias docker=podman
 else
     USER_ID=$(id -u); USER_GID=$(id -g)
     unset DOCKER_HOST
