@@ -16,6 +16,7 @@ services:
     command: phoebus-product/phoebus.sh -settings /config/settings.ini -resource /opi/demo.bob -server 7010
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority
       - ../../opi:/opi
       - ../../..:/workspaces
 
