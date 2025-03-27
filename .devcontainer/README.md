@@ -8,7 +8,7 @@ It also serves as an example of how to get podman and docker-compose working tog
 
 ## compose.yaml
 
-Your compose.yaml can be arbitrarily complex. But one of the services must be the 'devcontainer' that vscode will connect to. This is specified by service name in the devcontainer.json file.
+Your compose.yaml can be arbitrarily complex. But one of the services it creates must be the 'devcontainer' that vscode will connect to. This is specified by service name in the devcontainer.json file.
 That service must mount the workspace folder.
 
 See [the example mount](https://github.com/epics-containers/example-services/blob/9414c026191897082d8097ee2d004ccc665077ba/services/bl01t-di-cam-01/compose.yml#L28-L29) in this repo's bl49p-di-dcam-01 service
@@ -26,8 +26,8 @@ systemctl enable --user podman.socket --now
 
 Change the following settings in vscode:
 
-dev.containers.dockerPath: podman
-dev.containers.dockerSocketPath: unix:///run/user/$UID/podman/podman.sock
+- dev.containers.dockerPath: `podman`
+- dev.containers.dockerSocketPath: `unix:///run/user/$UID/podman/podman.sock`
 
 ## How to setup on a DLS workstation
 
