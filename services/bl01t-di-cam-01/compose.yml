@@ -6,7 +6,10 @@ services:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.3
+    # FOR DEV CONTAINERS developer version for use in the devcontainer
+    # TODO work out how to parameterise this so we can merge the devcontainer
+    # branch into main (I want runtime containers for main)
+    image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2025.3.5
 
     labels:
       version: 0.1.0
@@ -22,6 +25,8 @@ services:
     volumes:
       - ../../opi/auto-generated/bl01t-di-cam-01:/epics/opi
       - ../../autosave/bl01t-di-cam-01:/autosave
+      # FOR DEVCONTAINERS: mount in the parent of the project
+      - ../../..:/workspaces
 
     command: /epics/ioc/start.sh
 

@@ -46,6 +46,7 @@ services:
   pvagw-deploy:
 
     <<: *pvagw
+    container_name: pvagw-deploy
 
     ports:
     # TODO investigate how to configure this for deployment

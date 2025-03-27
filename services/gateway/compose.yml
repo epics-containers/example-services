@@ -55,6 +55,7 @@ services:
   ca-gateway-deploy:
 
     <<: *ca-gateway
+    container_name: ca-gateway-deploy
 
     ports:
     # TODO - I need to look into safe config for per server ca-gateways
