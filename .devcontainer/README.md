@@ -78,7 +78,7 @@ sudo dnf install podman docker-compose-plugin
 
 This project uses compose profiles. If you use them then you need to tell vscode which profile to use.
 
-You can globally set the environment variable `COMPOSE_PROFILES` but it is easier to use the devcontainer.json setting `runServices` to list the services that the devcontainer should start:
+You can globally set the environment variable `COMPOSE_PROFILES` but it is easier to use the devcontainer.json setting `runServices` to list the services that the devcontainer should start.
 
 e.g.
 ```json
