@@ -40,12 +40,13 @@ services:
 
     profiles:
       - test
-      - dev
+      - devcontainer
 
   # per server pvagw for deployment #############################################
   pvagw-deploy:
 
     <<: *pvagw
+    container_name: pvagw-deploy
 
     ports:
     # TODO investigate how to configure this for deployment

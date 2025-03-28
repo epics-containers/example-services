@@ -23,7 +23,9 @@ do
     fi
 
     # Get the container image that this service uses from values.yaml if supplied
-    image=$(cat ${service}/compose.yml | sed -rn 's/^ +image: (.*)/\1/p')
+    # note: 0,/^ +image/ means search from the start of the file to the first 'image'
+    # line. ie. only the first image line is used.
+    image=$(cat ${service}/compose.yml | sed -rn '0,/^ +image/s/^ +image: (.*)/\1/p')
 
     if [ -n "${image}" ]; then
         echo "Validating ${service} with ${image}"

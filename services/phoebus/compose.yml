@@ -40,7 +40,7 @@ services:
 
     profiles:
       - test
-      - dev
+      - devcontainer
       - debug
 
 configs:

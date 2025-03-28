@@ -1,12 +1,12 @@
 services:
 
-  bl01t-di-cam-01:
+  bl01t-di-cam-01: &bl01t-di-cam-01
 
     extends:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.3
+    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.5
 
     labels:
       version: 0.1.0
@@ -22,10 +22,23 @@ services:
     volumes:
       - ../../opi/auto-generated/bl01t-di-cam-01:/epics/opi
       - ../../autosave/bl01t-di-cam-01:/autosave
+      # FOR DEVCONTAINERS: mount in the parent of the project
+      - ../../..:/workspaces
 
     configs:
       - source: bl01t-di-cam-01_config
         target: epics/ioc/config
+
+    profiles:
+      - test
+      - deploy
+
+  bl01t-di-cam-01-dev:
+    <<: *bl01t-di-cam-01
+    image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2025.3.5
+
+    profiles:
+      - devcontainer
 
 configs:
   bl01t-di-cam-01_config:
