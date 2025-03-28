@@ -24,10 +24,9 @@ Create a podman service and socket for docker-compose to use. This need only be 
 systemctl enable --user podman.socket --now
 ```
 
-Change the following settings in vscode:
+Change the following setting in vscode:
 
 - dev.containers.dockerPath: `podman`
-- dev.containers.dockerSocketPath: `unix:///run/user/$UID/podman/podman.sock`
 
 ## How to setup on a DLS workstation
 
