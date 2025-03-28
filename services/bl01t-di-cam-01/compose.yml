@@ -23,8 +23,6 @@ services:
       - ../../opi/auto-generated/bl01t-di-cam-01:/epics/opi
       - ../../autosave/bl01t-di-cam-01:/autosave
 
-    command: /epics/ioc/start.sh
-
     configs:
       - source: bl01t-di-cam-01_config
         target: epics/ioc/config
