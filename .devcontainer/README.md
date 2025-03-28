@@ -78,9 +78,15 @@ sudo dnf install podman docker-compose-plugin
 
 This project uses compose profiles. If you use them then you need to tell vscode which profile to use.
 
-The simplest way to do that is to include a `.env` file next to your compose.yaml file with the following content:
+You can globally set the environment variable `COMPOSE_PROFILES` but it is easier to use the devcontainer.json setting `runServices` to list the services that the devcontainer should start:
 
-```env
-# default profile for compose project
-COMPOSE_PROFILES=test
+e.g.
+```json
+	// the services from the compose.yaml that we want to run
+	"runServices": [
+		"bl01t-di-cam-01-dev",
+		"phoebus",
+		"ca-gateway",
+		"pvagw"
+	],
 ```
