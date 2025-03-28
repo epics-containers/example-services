@@ -12,7 +12,14 @@
 	// IMPORTANT: the container you choose here MUST mount the project folder. giles chooses to
 	// mount the parent of the project folder to /workspaces so we can see peer projects in the
 	// container and add them to the vscode workspace.
-	"service": "bl01t-di-cam-01",
+	"service": "bl01t-di-cam-01-dev",
+	// the services from the compose.yaml that we want to run
+	"runServices": [
+		"bl01t-di-cam-01-dev",
+		"phoebus",
+		"ca-gateway",
+		"pvagw"
+	],
 	// The optional 'workspaceFolder' property is the path VS Code should open by default when
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
