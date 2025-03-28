@@ -19,6 +19,10 @@ services:
       - ../../opi/auto-generated/bl01t-mo-sim-01:/epics/opi
       - ../../autosave/bl01t-mo-sim-01:/autosave
 
+    configs:
+      - source: bl01t-mo-sim-01_config
+        target: epics/ioc/config
+
 configs:
   bl01t-mo-sim-01_config:
     file: ./config
