@@ -23,6 +23,10 @@ services:
       - source: bl01t-mo-sim-01_config
         target: epics/ioc/config
 
+    profiles:
+      - test
+      - deploy
+
 configs:
   bl01t-mo-sim-01_config:
     file: ./config

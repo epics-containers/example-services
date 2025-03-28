@@ -1,15 +1,12 @@
 services:
 
-  bl01t-di-cam-01:
+  bl01t-di-cam-01: &bl01t-di-cam-01
 
     extends:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    # FOR DEV CONTAINERS developer version for use in the devcontainer
-    # TODO work out how to parameterise this so we can merge the devcontainer
-    # branch into main (I want runtime containers for main)
-    image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2025.3.5
+    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.5
 
     labels:
       version: 0.1.0
@@ -31,6 +28,17 @@ services:
     configs:
       - source: bl01t-di-cam-01_config
         target: epics/ioc/config
+
+    profiles:
+      - test
+      - deploy
+
+  bl01t-di-cam-01-dev:
+    <<: *bl01t-di-cam-01
+    image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2025.3.5
+
+    profiles:
+      - devcontainer
 
 configs:
   bl01t-di-cam-01_config:

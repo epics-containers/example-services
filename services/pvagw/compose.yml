@@ -40,7 +40,7 @@ services:
 
     profiles:
       - test
-      - dev
+      - devcontainer
 
   # per server pvagw for deployment #############################################
   pvagw-deploy:

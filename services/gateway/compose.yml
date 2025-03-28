@@ -49,7 +49,7 @@ services:
 
     profiles:
       - test
-      - dev
+      - devcontainer
 
   # per server ca-gateway for deployment #######################################
   ca-gateway-deploy:

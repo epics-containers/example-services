@@ -20,6 +20,9 @@ services:
       - source: bl01t-ea-test-01_config
         target: epics/ioc/config
 
+    profiles:
+      - test
+
 configs:
   bl01t-ea-test-01_config:
     file: ./config
