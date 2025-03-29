@@ -1,42 +1,27 @@
-# Beamline t01 IOC Instances and Services
+# Beamline bl01t Example Simulation Beamline
 
-This repository holds the a definition of example beamline t01 IOC Instances and services. It is a example of how to deploy epics-containers IOCs using docker compose for those facilities that are not using Kubernetes. It can also deploy its set of IOCs to a developer workstation for testing / experimentation.
+This repository holds the definition of example beamline bl01t. It serves as a useful training tool for trying out epics-containers on a local workstation.
 
-The top level compose.yml file represents a set of IOCs and other services that would be deployed to a single IOC server.
+It also serves as an example of how to deploy epics-containers IOCs using docker compose for those facilities that are not planning on using Kubernetes.
 
-For this example we have a single compose file. However, if you wanted to keep all IOCs for a beamline in a single repo but deploy to multiple servers, then each server would have its own named compose file.
+The following containers are defined:
+- ca-gateway
+- pva-gateway
+- phoebus
+- a motor simulation IOC
+- an area detector simulation IOC
+- an additional simple example IOC
+
+The top level compose.yml file represents a set of IOCs and other services that would be deployed to a single IOC server or workstation. It includes a separate compose file for each of the services listed above.
+
+Potentially you could have one top level compose file per IOC server in a multi-server setup.
 
 ## Initial Setup
 
-First install Docker and Docker Compose. See https://docs.docker.com/compose/install/.
+To try this example requires only git, docker compose and a container runtime (docker or podman).
 
-At DLS you need only run `module load docker-compose` to enable `docker compose` backed by the podman container engine. (see the end of this page if you get errors)
+See [quickstart instructions](https://epics-containers.github.io/main/how-to/compose-quickstart.html) for details on how to install these on most platforms.
 
-Setup command line completion for docker compose (optional). Note - using the short alias `dc` for `docker compose` will most likely not work with auto completion in bash. Using zsh instead of bash will give you completion even with aliasing.
-
-Command line completion is very helpful as it will help you find the correct service names and commands.
-
-Command line completion for docker:
-```bash
-# these steps will make cli completion work for zsh
-mkdir -p ~/.oh-my-zsh/completions
-docker completion zsh > ~/.oh-my-zsh/completions/_docker
-
-# these steps will make cli completion work for bash
-mkdir -p ~/.local/share/bash-completion/completions
-docker completion bash > ~/.local/share/bash-completion/completions/docker
-```
-
-Command line completion for podman:
-```bash
-# these steps will make cli completion work for zsh
-mkdir -p ~/.oh-my-zsh/completions
-podman completion zsh > ~/.oh-my-zsh/completions/_podman
-
-# these steps will make cli completion work for bash
-mkdir -p ~/.local/share/bash-completion/completions
-podman completion bash > ~/.local/share/bash-completion/completions/podman
-```
 
 ## Local Testing Environment
 
@@ -50,13 +35,6 @@ docker compose up -d
 ```
 
 NOTE: -d detaches from the containers. You may omit this if you would prefer to follow the logs of all the containers - these combined logs include a colour coded prefix to make them more legible.
-
-This will launch the following containers:
-- ca-gateway
-- phoebus
-- a motor simulation IOC
-- an area detector simulation IOC
-- an additional simple example IOC
 
 
 ## Experimenting
@@ -93,7 +71,10 @@ docker compose down
 
 # Deploy To Beamline Servers
 
-TODO: this is work in progress - we have not yet created appropriate ca-gateway settings for this.
+TODO: although this will work for CA, there is not yet a solution for PVA. PVA UDP traffic will not route into a container. Two possible solutions are:
+
+ - put all the IOCs in host network and do not use gateways
+ - put the only the pva gateway in host network and have it's container generate a EPICS_PVA_NAME_SERVERS setting that lists all the local IOCS container network IP addresses. (I have used this approach for routing into kubernetes IOCs running in the CNI)
 
 To deploy IOCs to a server, clone this repo and run the following command from the repo root:
 
@@ -119,10 +100,10 @@ These goals for switching to compose (from bespoke code in the `ec` tool) have a
 - enable isolated testing where PVs are not available to the whole subnet
 - include separate profiles for:
   - local testing - including phoebus OPI
-  - deployment to a beamline server - this would need either:
+  - deployment to a beamline server - this requires either:
     - network host on the IOCs
-    - a ca-gateway
-- structure so that there is a compose file per server
+    - a ca-gateway and pva-gateway
+- structure so that there is a compose file per server and per IOC
 - remove need for custom code/scripts to deploy/manage the IOCs
 - also allow PV isolation on servers with a ca-gateway to enable access
 
