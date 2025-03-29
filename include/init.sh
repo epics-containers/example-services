@@ -23,3 +23,4 @@ for ioc in bl01t-di-cam-01 bl01t-ea-test-01 bl01t-mo-sim-01; do
   mkdir -p $root/autosave/$ioc
   mkdir -p $root/runtime/$ioc
   mkdir -p $root/opi/auto-generated/$ioc
+done
