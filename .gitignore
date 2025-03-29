@@ -5,13 +5,10 @@ venv*
 .venv*
 *workspace
 
-# this is the root directory for generated opi files
-# and is created at runtime by IOCs using PVI
+# these files are generated at runtime by IOC containers
 opi/auto-generated/*
-!opi/auto-generated/README.md
-
 autosave/*
-!autosave/.placeholder
+runtime/*
 
 # these files are generated from templates
 # when sourcing environment.sh

@@ -15,6 +15,9 @@ services:
 
     image: ghcr.io/epics-containers/gateways-runtime:2024.12.3
 
+    # run with same ID as the user (for docker - for podman run as root)
+    user: ${UIDGID}
+
     security_opt:
       - label=disable
 
