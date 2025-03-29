@@ -12,16 +12,15 @@ The following containers are defined:
 - an area detector simulation IOC
 - an additional simple example IOC
 
-The top level compose.yml file represents a set of IOCs and other services that would be deployed to a single IOC server. It includes a separate compose file for each of the services listed above.
+The top level compose.yml file represents a set of IOCs and other services that would be deployed to a single IOC server or workstation. It includes a separate compose file for each of the services listed above.
 
 Potentially you could have one top level compose file per IOC server in a multi-server setup.
 
-
 ## Initial Setup
 
-To try this example requires only git, docker compose and a container runtime (docker or podman)
+To try this example requires only git, docker compose and a container runtime (docker or podman).
 
-See [installation instructions](https://epics-containers.github.io/main/tutorials/install.html) for details on how to install these on most platforms.
+See [quickstart instructions](https://epics-containers.github.io/main/how-to/compose-quickstart.html) for details on how to install these on most platforms.
 
 
 ## Local Testing Environment
