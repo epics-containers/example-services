@@ -13,7 +13,7 @@ services:
 
     tty: true
     # pick a server port for phoebus so it does not reconnect to existing phoebus
-    command: phoebus-product/phoebus.sh -settings /config/settings.ini -resource /opi/demo.bob -server 7010
+    command: phoebus-product/phoebus.sh -settings /config/settings.ini -resource http://localhost:8001/opi/demo.bob -server 7010
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/.Xauthority:/root/.Xauthority
