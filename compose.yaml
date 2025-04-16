@@ -21,6 +21,7 @@ include:
   - services/bl01t-mo-sim-01/compose.yml
   - services/gateway/compose.yml
   - services/pvagw/compose.yml
+  - services/epics-opis/compose.yml
 
   # develop profile only
   - services/phoebus/compose.yml
