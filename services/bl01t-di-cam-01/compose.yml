@@ -6,7 +6,9 @@ services:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.5
+    #image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.3.5
+    image: localhost/mycooltag
+    entrypoint: /epics/ioc/start.sh
 
     labels:
       version: 0.1.0
