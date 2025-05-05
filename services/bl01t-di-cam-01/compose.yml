@@ -22,8 +22,7 @@ services:
     volumes:
       - ../../opi/auto-generated/bl01t-di-cam-01:/epics/opi
       - ../../autosave/bl01t-di-cam-01:/autosave
-      # FOR DEVCONTAINERS: mount in the parent of the project
-      - ../../..:/workspaces
+      - ../../runtime/bl01t-di-cam-01:/epics/runtime
 
     configs:
       - source: bl01t-di-cam-01_config
@@ -36,6 +35,10 @@ services:
   bl01t-di-cam-01-dev:
     <<: *bl01t-di-cam-01
     image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2025.3.5
+
+    volumes:
+      # FOR DEVCONTAINERS: mount in the parent of the project
+      - ../../..:/workspaces
 
     profiles:
       - devcontainer
