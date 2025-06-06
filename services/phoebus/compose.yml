@@ -7,6 +7,7 @@ services:
     image: ghcr.io/epics-containers/ec-phoebus:4.7.3ec2
     depends_on:
       - init
+      - epics-opis
     environment:
       DISPLAY: $DISPLAY
       UIDGID: ${UIDGID:-0:0} # defaults to working with rootless
