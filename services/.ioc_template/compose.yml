@@ -18,6 +18,9 @@ services:
     volumes:
       - ../../opi/auto-generated/ioc_default_name:/epics/opi
 
+    security_opt:
+      - label=disable
+
     configs:
       - source: ioc_default_name_config
         target: epics/ioc/config

@@ -14,8 +14,11 @@ services:
 
     volumes:
       # mount this project's /opis into default nginx static html folder
-      - ../../opi:/usr/share/nginx/html/opi
-      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - ../../opi:/usr/share/nginx/html/opi:z
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:z
+
+    security_opt:
+      - label=disable
 
     platform: linux/amd64
 
