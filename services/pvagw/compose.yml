@@ -12,6 +12,9 @@ services:
     depends_on:
       - init
 
+    # run with same ID as the user (for docker - for podman run as root)
+    user: ${UIDGID}
+
     security_opt:
       - label=disable
 

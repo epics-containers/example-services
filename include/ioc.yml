@@ -5,6 +5,10 @@
 services:
   # linux IOCs that run in a container #########################################
   linux_ioc: &linux_ioc
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
     labels:
       # a reference to which repository created this IOC
       ioc_group: bl01t
@@ -13,6 +17,9 @@ services:
       # in K8S each IOC can have an indication of what physical location it
       # should be (used by machine IOCs) this is for parity (but redundant).
       location: localhost
+
+    # run with same ID as the user (for docker - for podman run as root)
+    user: ${UIDGID}
 
     security_opt:
       - label=disable

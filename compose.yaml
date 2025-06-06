@@ -47,3 +47,6 @@ services:
       - EPICS_PVA_NAME_SERVERS
       - EPICS_CA_NAME_SERVERS
       - EPICS_CA_ADDR_LIST
+
+    # run with same ID as the user (for docker - for podman run as root)
+    user: ${UIDGID}
