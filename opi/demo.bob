@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2024-12-02 19:37:07 by root-->
+<!--Saved on 2025-06-12 14:30:33 by root-->
 <display version="2.0.0">
   <name>Example IOCs</name>
   <width>388</width>
@@ -578,5 +578,278 @@
     <data_height>1024</data_height>
     <unsigned>true</unsigned>
     <cursor_crosshair>true</cursor_crosshair>
+  </widget>
+  <widget type="byte_monitor" version="2.0.0">
+    <name>Byte Monitor</name>
+    <x>1896</x>
+    <y>336</y>
+    <width>0</width>
+    <height>0</height>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>X</name>
+    <x>1092</x>
+    <y>36</y>
+    <width>396</width>
+    <height>156</height>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>Label_28</name>
+      <text>Position</text>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>TextEntry_9</name>
+      <pv_name>BL01T-MO-SIMC-01:M1</pv_name>
+      <x>155</x>
+      <horizontal_alignment>1</horizontal_alignment>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>TextUpdate_17</name>
+      <pv_name>BL01T-MO-SIMC-01:M1.RBV</pv_name>
+      <x>260</x>
+      <font>
+        <font name="Default Bold" family="Liberation Sans" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <horizontal_alignment>1</horizontal_alignment>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_29</name>
+      <text>Stop</text>
+      <y>25</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>WritePV</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+          <description>$(name)</description>
+        </action>
+      </actions>
+      <pv_name>BL01T-MO-SIMC-01:M1.STOP</pv_name>
+      <text>Stop</text>
+      <x>155</x>
+      <y>25</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(P)$(M).STOP = 1</tooltip>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_30</name>
+      <text>Tweak Forward</text>
+      <y>50</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>WritePV_1</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+          <description>$(name)</description>
+        </action>
+      </actions>
+      <pv_name>BL01T-MO-SIMC-01:M1.TWF</pv_name>
+      <text>Tweak Forward</text>
+      <x>155</x>
+      <y>50</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(P)$(M).TWF = 1</tooltip>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_31</name>
+      <text>Tweak Step</text>
+      <y>75</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>TextEntry_10</name>
+      <pv_name>BL01T-MO-SIMC-01:M1.TWV</pv_name>
+      <x>155</x>
+      <y>75</y>
+      <width>205</width>
+      <horizontal_alignment>1</horizontal_alignment>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_32</name>
+      <text>Tweak Reverse</text>
+      <y>100</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>WritePV_2</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+          <description>$(name)</description>
+        </action>
+      </actions>
+      <pv_name>BL01T-MO-SIMC-01:M1.TWR</pv_name>
+      <text>Tweak Reverse</text>
+      <x>155</x>
+      <y>100</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(P)$(M).TWR = 1</tooltip>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>THETA</name>
+    <x>1092</x>
+    <y>276</y>
+    <width>396</width>
+    <height>156</height>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>Label_38</name>
+      <text>Position</text>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>TextEntry_13</name>
+      <pv_name>BL01T-MO-SIMC-01:M2</pv_name>
+      <x>155</x>
+      <horizontal_alignment>1</horizontal_alignment>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>TextUpdate_19</name>
+      <pv_name>BL01T-MO-SIMC-01:M2.RBV</pv_name>
+      <x>260</x>
+      <font>
+        <font name="Default Bold" family="Liberation Sans" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <horizontal_alignment>1</horizontal_alignment>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_39</name>
+      <text>Stop</text>
+      <y>25</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>WritePV_6</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+          <description>$(name)</description>
+        </action>
+      </actions>
+      <pv_name>BL01T-MO-SIMC-01:M2.STOP</pv_name>
+      <text>Stop</text>
+      <x>155</x>
+      <y>25</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(P)$(M).STOP = 1</tooltip>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_40</name>
+      <text>Tweak Forward</text>
+      <y>50</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>WritePV_7</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+          <description>$(name)</description>
+        </action>
+      </actions>
+      <pv_name>BL01T-MO-SIMC-01:M2.TWF</pv_name>
+      <text>Tweak Forward</text>
+      <x>155</x>
+      <y>50</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(P)$(M).TWF = 1</tooltip>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_41</name>
+      <text>Tweak Step</text>
+      <y>75</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>TextEntry_14</name>
+      <pv_name>BL01T-MO-SIMC-01:M2.TWV</pv_name>
+      <x>155</x>
+      <y>75</y>
+      <width>205</width>
+      <horizontal_alignment>1</horizontal_alignment>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_42</name>
+      <text>Tweak Reverse</text>
+      <y>100</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>WritePV_8</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+          <description>$(name)</description>
+        </action>
+      </actions>
+      <pv_name>BL01T-MO-SIMC-01:M2.TWR</pv_name>
+      <text>Tweak Reverse</text>
+      <x>155</x>
+      <y>100</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(P)$(M).TWR = 1</tooltip>
+    </widget>
+  </widget>
+  <widget type="linearmeter" version="2.0.0">
+    <name>LinearMeter</name>
+    <pv_name>BL01T-MO-SIMC-01:M1.RBV</pv_name>
+    <x>1110</x>
+    <y>192</y>
+    <width>360</width>
+    <height>59</height>
+    <show_units>false</show_units>
+    <limits_from_pv>false</limits_from_pv>
+    <minimum>-25.0</minimum>
+    <maximum>25.0</maximum>
+    <level_lolo>-25.0</level_lolo>
+    <level_low>-25.0</level_low>
+    <level_high>25.0</level_high>
+    <level_hihi>25.0</level_hihi>
+  </widget>
+  <widget type="linearmeter" version="2.0.0">
+    <name>LinearMeter_1</name>
+    <pv_name>BL01T-MO-SIMC-01:M2.RBV</pv_name>
+    <x>1110</x>
+    <y>432</y>
+    <width>360</width>
+    <height>57</height>
+    <show_units>false</show_units>
+    <limits_from_pv>false</limits_from_pv>
+    <minimum>-360.0</minimum>
+    <maximum>360.0</maximum>
+    <level_lolo>-360.0</level_lolo>
+    <level_low>-360.0</level_low>
+    <level_high>360.0</level_high>
+    <level_hihi>360.0</level_hihi>
   </widget>
 </display>
