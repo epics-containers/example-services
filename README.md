@@ -1,4 +1,7 @@
+
 # Beamline bl01t Example Simulation Beamline
+
+See [DNS-ISSUE-DEMO](dns-issue-demo.md) for a demonstration of the DNS issue https://github.com/epics-base/epics-base/issues/488.
 
 This repository holds the definition of example beamline bl01t. It serves as a useful training tool for trying out epics-containers on a local workstation.
 
