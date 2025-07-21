@@ -33,6 +33,10 @@ services:
     environment:
       EPICS_CA_SERVER_PORT: ${EPICS_CA_SERVER_PORT}
       EPICS_CA_REPEATER_PORT: ${EPICS_CA_REPEATER_PORT}
+      # address IOCs by their hostname
+      EPICS_CA_ADDR_LIST: "bl01t-di-cam-01 bl01t-mo-sim-01"
+      # don't use the broadcast address
+      EPICS_CA_AUTO_ADDR_LIST: "NO"
 
     restart: unless-stopped
 
@@ -43,12 +47,15 @@ services:
       - source: ca-gateway_config
         target: /config
 
+    # I am surpirsed to learn that I cannot use $EPICS_CA_ADDR_LIST in `command:`
+    # it will pick up what is in the .env file, but not the environment settihng above.
+    # So repeat here the list of IOC DNS names that the gateway should access
     command:
       - bash
       - -c
       - >
         /epics/ca-gateway/bin/linux-x86_64/gateway
-        -cip ${CA_BROADCAST} -pvlist /config/pvlist
+        -cip "bl01t-di-cam-01 bl01t-mo-sim-01" -pvlist /config/pvlist
         -access /config/access -log /dev/stdout -debug 1
 
     platform: linux/amd64
@@ -56,29 +63,6 @@ services:
     profiles:
       - test
       - devcontainer
-
-  # per server ca-gateway for deployment #######################################
-  ca-gateway-deploy:
-
-    <<: *ca-gateway
-    container_name: ca-gateway-deploy
-
-    ports:
-    # bind to all interfaces to allow access from other hosts
-      - ${EPICS_CA_SERVER_PORT}:${EPICS_CA_SERVER_PORT}/udp
-      - ${EPICS_CA_SERVER_PORT}:${EPICS_CA_SERVER_PORT}
-      - ${EPICS_CA_REPEATER_PORT}:${EPICS_CA_REPEATER_PORT}
-
-    command:
-      - bash
-      - -c
-      - >
-        /epics/ca-gateway/bin/linux-x86_64/gateway
-        -cip ${CA_BROADCAST} -pvlist /config/pvlist
-        -access /config/access -log /dev/stdout -debug 0
-
-    profiles:
-      - deploy
 
 configs:
   ca-gateway_config:

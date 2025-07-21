@@ -11,6 +11,10 @@ services:
     labels:
       version: 0.1.0
 
+    networks:
+      channel_access:
+        ipv4_address: 170.200.0.97
+
     ports:
       - 8080:8080/tcp
 
