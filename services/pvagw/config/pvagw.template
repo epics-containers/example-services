@@ -12,7 +12,7 @@
         {
             "name":"theclient",
             "provider":"pva",
-            "addrlist":"172.20.255.255",
+            "addrlist":"bl01t-di-cam-01 bl01t-mo-sim-01",
             "autoaddrlist":false,
             "serverport":5075,
             "bcastport":5076

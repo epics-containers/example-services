@@ -13,7 +13,7 @@ services:
 
     networks:
       channel_access:
-        ipv4_address: 170.200.0.99
+        ipv4_address: 170.200.0.90
 
     ports:
       - 8080:8080/tcp
