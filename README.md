@@ -69,6 +69,8 @@ docker compose up bl01t-di-cam-01 -d
 docker compose down
 ```
 
+NOTE: sometimes the pva-gateway will not terminate before `docker compose down` completes. If this happens then you can run `docker compose down` again and it should then remove the pva-gateway container.
+
 # Deploy To Beamline Servers
 
 TODO: although this will work for CA, there is not yet a solution for PVA. PVA UDP traffic will not route into a container. Two possible solutions are:
