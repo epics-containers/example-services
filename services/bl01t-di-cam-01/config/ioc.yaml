@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adsimdetector/releases/download/2025.3.4/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adsimdetector/releases/download/2025.7.1b2/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 description: Example simulated camera for BL01T
@@ -28,11 +28,11 @@ entities:
       dbpf BL01T-DI-CAM-01:PVA:EnableCallbacks 1
       dbpf BL01T-DI-CAM-01:DET:Acquire 1
 
-  - type: ffmpegServer.ffmpegStream
-    PORT: DET.MJP
-    P: BL01T-DI-CAM-01
-    R: ":MJP:"
-    NDARRAY_PORT: DET.DET
+  # - type: ffmpegServer.ffmpegStream
+  #   PORT: DET.MJP
+  #   P: BL01T-DI-CAM-01
+  #   R: ":MJP:"
+  #   NDARRAY_PORT: DET.DET
 
   - type: ADCore.NDROI
     PORT: DET.ROI
@@ -46,7 +46,7 @@ entities:
     R: ":PROC:"
     NDARRAY_PORT: DET.ROI
 
-  - type: ADCore.NDPvaPlugin
+  - type: ADCore.NDPvxsPlugin
     PORT: DET.PVA
     PVNAME: BL01T-DI-CAM-01:PVA:OUTPUT
     P: BL01T-DI-CAM-01
