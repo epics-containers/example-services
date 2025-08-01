@@ -21,6 +21,8 @@ settings="
 -settings /workspace/settings.ini
 "
 
+if ! which podman &> /dev/null ; then podman=docker; else podman=podman; fi
+
 set -x
-podman run ${mounts} ${args} ghcr.io/epics-containers/ec-phoebus:latest ${settings} "${@}"
+$podman run ${mounts} ${args} ghcr.io/epics-containers/ec-phoebus:latest ${settings} "${@}"
 
