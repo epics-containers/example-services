@@ -6,7 +6,7 @@ services:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-template-example-runtime:3.5.1
+    image: ghcr.io/epics-containers/ioc-template-example-runtime:4.4.6
 
     labels:
       version: 0.1.0
