@@ -12,7 +12,7 @@ services:
       version: 0.1.0
 
     ports:
-      - 8080:8080/tcp
+      - 9080:8080/tcp
 
     environment:
       IOCSH_PS1: bl01t-di-cam-01 >
