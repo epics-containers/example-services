@@ -1,7 +1,5 @@
 services:
-
   bl01t-di-cam-01: &bl01t-di-cam-01
-
     extends:
       service: linux_ioc
       file: ../../include/ioc.yml
@@ -24,6 +22,7 @@ services:
       - ../../autosave/bl01t-di-cam-01:/autosave
       # FOR DEVCONTAINERS: mount in the parent of the project
       - ../../..:/workspaces
+      - ../../../services/.cache/detector_data:/tmp:shared
 
     configs:
       - source: bl01t-di-cam-01_config
@@ -45,6 +44,4 @@ configs:
     file: ./config
 
 include:
-  - path:
-      ../../include/networks.yml
-
+  - path: ../../include/networks.yml
