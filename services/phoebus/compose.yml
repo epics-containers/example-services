@@ -40,7 +40,6 @@ services:
     platform: linux/amd64
 
     profiles:
-      - test
       - devcontainer
       - debug
 
@@ -49,5 +48,4 @@ configs:
     file: ./config
 
 include:
-  - path:
-      ../../include/networks.yml
+  - path: ../../include/networks.yml
