@@ -1,12 +1,10 @@
 services:
-
   bl01t-di-cam-01: &bl01t-di-cam-01
-
     extends:
       service: linux_ioc
       file: ../../include/ioc.yml
 
-    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2025.8.2
+    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2.11ec1
 
     labels:
       version: 0.1.0
@@ -45,6 +43,4 @@ configs:
     file: ./config
 
 include:
-  - path:
-      ../../include/networks.yml
-
+  - path: ../../include/networks.yml
