@@ -26,9 +26,6 @@ include:
   # develop profile only
   - services/phoebus/compose.yml
 
-  # deploy profile only
-  - services/epics-opis/compose.yml
-
 services:
   init:
     image: ubuntu
