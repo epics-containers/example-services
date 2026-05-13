@@ -16,6 +16,9 @@ services:
       IOC_NAME: bl01t-ea-test-01
       IOC_PREFIX: BL01T-EA-TEST-01
 
+    volumes:
+      - ../../runtime/bl01t-ea-test-01:/epics/runtime
+
     configs:
       - source: bl01t-ea-test-01_config
         target: epics/ioc/config
