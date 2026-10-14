@@ -71,6 +71,26 @@ docker compose down
 
 NOTE: sometimes the pva-gateway will not terminate before `docker compose down` times out and you will see an error. If this happens then you can run `docker compose down` again and it should then remove the pva-gateway container.
 
+# Phone Deployment
+
+`compose-phone.yaml` is a separate, cut-down deployment for a single small host such as the arm64 Debian VM in the Android Linux Terminal. It runs only the camera and motor IOCs (`bl01t-di-cam-01`, `bl01t-mo-sim-01`) from multi-arch (amd64 + arm64) generic IOC images, reusing their configs in `services/*/config`. There are no gateways, phoebus or init service: the IOCs use the host network, each with its own ports (camera CA 5064 / PVA 5075, motor CA 6064 / PVA 6075).
+
+```bash
+git clone https://github.com/epics-containers/example-services.git
+cd example-services
+docker compose -f compose-phone.yaml up -d   # or podman compose
+```
+
+View the screens with [bobview](https://github.com/gilesknap/bobview), installed natively on the phone (see its README):
+
+```bash
+export EPICS_CA_AUTO_ADDR_LIST=NO EPICS_CA_ADDR_LIST="127.0.0.1:5064 127.0.0.1:6064"
+export EPICS_PVA_AUTO_ADDR_LIST=NO EPICS_PVA_NAME_SERVERS="127.0.0.1:5075 127.0.0.1:6075"
+bobview opi/demo.bob
+```
+
+The IOCs write their auto-generated screens into `opi/auto-generated/`, which `demo.bob` links to. Use `docker compose -f compose-phone.yaml down` to stop. The main `compose.yaml` is unchanged by this.
+
 # Deploy To Beamline Servers
 
 TODO: although this will work for CA, there is not yet a solution for PVA. PVA UDP traffic will not route into a container. Two possible solutions are:
