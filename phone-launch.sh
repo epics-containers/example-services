@@ -14,6 +14,29 @@ set -e
 
 cd "$(dirname "$(readlink -f "$0")")"
 
+# with podman, make sure its API service is running and point DOCKER_HOST at
+# it so that 'docker compose' (or the docker-compose behind 'podman compose')
+# talks to podman. Set USE_DOCKER to use docker instead.
+if podman version &> /dev/null && [[ -z ${USE_DOCKER} ]]; then
+    sock=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/podman/podman.sock
+    if systemctl --user enable --now podman.socket &> /dev/null; then
+        :  # socket activation starts the service on first use
+    elif [[ ! -S ${sock} ]]; then
+        # no systemd user session: run the service directly in the background
+        mkdir -p "$(dirname "${sock}")"
+        nohup podman system service --time=0 "unix://${sock}" &> /dev/null &
+        for _ in $(seq 10); do
+            [[ -S ${sock} ]] && break
+            sleep 1
+        done
+    fi
+    if [[ ! -S ${sock} ]]; then
+        echo "ERROR: podman API socket ${sock} is not available"
+        exit 1
+    fi
+    export DOCKER_HOST=unix://${sock}
+fi
+
 # prefer docker compose, else podman compose
 if docker compose version &> /dev/null; then
     compose="docker compose"
@@ -30,9 +53,34 @@ if [[ "$1" == "stop" ]]; then
     exit 0
 fi
 
+# release binaries of bobview are only published for aarch64 (the phone), so
+# other architectures must build it from source
+bobview_install() {
+    if [[ $(uname -m) == aarch64 ]]; then
+        echo "Install it with:"
+        echo "  sudo apt install libxkbcommon0 libwayland-client0 libegl1 libgl1-mesa-dri"
+        echo "  curl -sSfL https://raw.githubusercontent.com/gilesknap/bobview/main/install.sh | bash"
+    else
+        echo "There is no $(uname -m) release of bobview (install.sh only provides"
+        echo "aarch64), so build it from source with a Rust toolchain (https://rustup.rs):"
+        echo "  cargo install --locked --git https://github.com/gilesknap/bobview bobview"
+        echo "This installs into ~/.cargo/bin, make sure that is on your PATH."
+    fi
+}
+
 if ! command -v bobview &> /dev/null; then
     echo "ERROR: bobview not found on PATH."
-    echo "Install it from https://github.com/gilesknap/bobview (see its README)."
+    bobview_install
+    exit 1
+fi
+
+# exit status 126 means the binary cannot be executed, e.g. the aarch64
+# release installed on an x86_64 machine
+bobview --help &> /dev/null && rc=0 || rc=$?
+if [[ ${rc} == 126 ]]; then
+    echo "ERROR: $(command -v bobview) cannot run on this $(uname -m) machine"
+    echo "(probably the aarch64 release). Remove it, then:"
+    bobview_install
     exit 1
 fi
 
