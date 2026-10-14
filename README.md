@@ -75,7 +75,7 @@ NOTE: sometimes the pva-gateway will not terminate before `docker compose down` 
 
 `compose-phone.yaml` is a separate, cut-down deployment for a single small host such as the arm64 Debian VM in the Android Linux Terminal. It runs only the camera and motor IOCs (`bl01t-di-cam-01`, `bl01t-mo-sim-01`) from multi-arch (amd64 + arm64) generic IOC images, reusing their configs in `services/*/config`. There are no gateways, phoebus or init service: the IOCs use the host network, each with its own ports (camera CA 5064 / PVA 5075, motor CA 6064 / PVA 6075).
 
-The screens are viewed with [bobview](https://github.com/gilesknap/bobview), which runs natively on the phone rather than in a container. Release binaries are only published for aarch64; on other architectures (e.g. an x86_64 workstation) build it with `cargo install --locked --git https://github.com/gilesknap/bobview bobview`. `phone-launch.sh` prints the right install instructions for your machine if bobview is missing or is the wrong architecture. Then:
+The screens are viewed with [bobview](https://github.com/gilesknap/bobview), which runs natively on the phone rather than in a container. If bobview is missing (or built for the wrong architecture), `phone-launch.sh` installs it into `~/.local` with bobview's own installer, which fetches the release build for the machine (aarch64 or x86_64). It may also need `sudo apt install libxkbcommon0 libwayland-client0 libegl1 libgl1-mesa-dri`. Then:
 
 ```bash
 git clone https://github.com/epics-containers/example-services.git

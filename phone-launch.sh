@@ -53,35 +53,29 @@ if [[ "$1" == "stop" ]]; then
     exit 0
 fi
 
-# release binaries of bobview are only published for aarch64 (the phone), so
-# other architectures must build it from source
+# install bobview into ~/.local with its own installer, which fetches the
+# release build for this machine (aarch64 or x86_64)
 bobview_install() {
-    if [[ $(uname -m) == aarch64 ]]; then
-        echo "Install it with:"
-        echo "  sudo apt install libxkbcommon0 libwayland-client0 libegl1 libgl1-mesa-dri"
-        echo "  curl -sSfL https://raw.githubusercontent.com/gilesknap/bobview/main/install.sh | bash"
-    else
-        echo "There is no $(uname -m) release of bobview (install.sh only provides"
-        echo "aarch64), so build it from source with a Rust toolchain (https://rustup.rs):"
-        echo "  cargo install --locked --git https://github.com/gilesknap/bobview bobview"
-        echo "This installs into ~/.cargo/bin, make sure that is on your PATH."
-    fi
+    echo "Installing bobview into ~/.local ..."
+    curl -sSfL https://raw.githubusercontent.com/gilesknap/bobview/main/install.sh | bash
+    export PATH=${HOME}/.local/bin:${PATH}
+    echo "bobview needs these libraries; if it fails to start, run:"
+    echo "  sudo apt install libxkbcommon0 libwayland-client0 libegl1 libgl1-mesa-dri"
 }
 
 if ! command -v bobview &> /dev/null; then
-    echo "ERROR: bobview not found on PATH."
+    PATH=${HOME}/.local/bin:${PATH}
+fi
+if ! command -v bobview &> /dev/null; then
     bobview_install
-    exit 1
 fi
 
-# exit status 126 means the binary cannot be executed, e.g. the aarch64
-# release installed on an x86_64 machine
+# exit status 126 means the binary cannot be executed, e.g. an aarch64 build
+# copied onto an x86_64 machine: reinstall the right one
 bobview --help &> /dev/null && rc=0 || rc=$?
 if [[ ${rc} == 126 ]]; then
-    echo "ERROR: $(command -v bobview) cannot run on this $(uname -m) machine"
-    echo "(probably the aarch64 release). Remove it, then:"
+    echo "$(command -v bobview) cannot run on this $(uname -m) machine"
     bobview_install
-    exit 1
 fi
 
 ${compose} up -d
