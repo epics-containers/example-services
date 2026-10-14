@@ -7,10 +7,9 @@
 # in services/*/config but nothing else, so the main deployment is unaffected.
 #
 # run from the repo root:
+#   ./phone-launch.sh        (starts these IOCs, then opens bobview)
+# or just the IOCs:
 #   docker compose -f compose-phone.yaml up -d
-#
-# OPI: run bobview natively on the phone (it is a GUI binary, not a container)
-#   see "Phone deployment" in README.md for the client environment.
 #
 # Networking: the IOCs use the host network, so no gateways, port mappings or
 # init service are needed. Each IOC gets its own CA and PVA server ports so that
@@ -70,22 +69,7 @@ services:
       - ./opi/auto-generated/bl01t-mo-sim-01:/epics/opi
       - ./autosave/bl01t-mo-sim-01:/autosave
 
-  # PLACEHOLDER - bobview has no container image (yet). It is installed and
-  # run natively on the phone (see README.md). If an arm64-capable image is
-  # published it could be added here along these lines, passing through the
-  # Wayland socket of the Linux Terminal:
-  #
-  # bobview:
-  #   image: ghcr.io/gilesknap/bobview:<version>   # does not exist yet
-  #   network_mode: host
-  #   environment:
-  #     WAYLAND_DISPLAY: ${WAYLAND_DISPLAY}
-  #     XDG_RUNTIME_DIR: /run/user
-  #     EPICS_CA_AUTO_ADDR_LIST: "NO"
-  #     EPICS_CA_ADDR_LIST: 127.0.0.1:5064 127.0.0.1:6064
-  #     EPICS_PVA_AUTO_ADDR_LIST: "NO"
-  #     EPICS_PVA_NAME_SERVERS: 127.0.0.1:5075 127.0.0.1:6075
-  #   volumes:
-  #     - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/run/user/${WAYLAND_DISPLAY}
-  #     - ./opi:/opi
-  #   command: /opi/demo.bob
+  # bobview is not a service here: it is a native GUI binary on the phone and
+  # containerising it would only add display passthrough. ./phone-launch.sh
+  # runs this compose file and then launches bobview with the right client
+  # environment.

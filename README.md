@@ -75,21 +75,16 @@ NOTE: sometimes the pva-gateway will not terminate before `docker compose down` 
 
 `compose-phone.yaml` is a separate, cut-down deployment for a single small host such as the arm64 Debian VM in the Android Linux Terminal. It runs only the camera and motor IOCs (`bl01t-di-cam-01`, `bl01t-mo-sim-01`) from multi-arch (amd64 + arm64) generic IOC images, reusing their configs in `services/*/config`. There are no gateways, phoebus or init service: the IOCs use the host network, each with its own ports (camera CA 5064 / PVA 5075, motor CA 6064 / PVA 6075).
 
+The screens are viewed with [bobview](https://github.com/gilesknap/bobview), which runs natively on the phone rather than in a container; install it first (see its README). Then:
+
 ```bash
 git clone https://github.com/epics-containers/example-services.git
 cd example-services
-docker compose -f compose-phone.yaml up -d   # or podman compose
+./phone-launch.sh        # start the IOCs and open bobview on opi/demo.bob
+./phone-launch.sh stop   # stop the IOCs
 ```
 
-View the screens with [bobview](https://github.com/gilesknap/bobview), installed natively on the phone (see its README):
-
-```bash
-export EPICS_CA_AUTO_ADDR_LIST=NO EPICS_CA_ADDR_LIST="127.0.0.1:5064 127.0.0.1:6064"
-export EPICS_PVA_AUTO_ADDR_LIST=NO EPICS_PVA_NAME_SERVERS="127.0.0.1:5075 127.0.0.1:6075"
-bobview opi/demo.bob
-```
-
-The IOCs write their auto-generated screens into `opi/auto-generated/`, which `demo.bob` links to. Use `docker compose -f compose-phone.yaml down` to stop. The main `compose.yaml` is unchanged by this.
+`phone-launch.sh` uses `docker compose` (or `podman compose`) with `compose-phone.yaml`, waits for the IOCs to write their auto-generated screens into `opi/auto-generated/` (which `demo.bob` links to), and runs bobview with the CA/PVA client settings pointing at the IOC ports. The IOCs keep running when bobview is closed; run the script again to reopen it. The main `compose.yaml` is unchanged by this.
 
 # Deploy To Beamline Servers
 
