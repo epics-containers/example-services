@@ -1,0 +1,75 @@
+# A cut-down deployment for a single small host such as the arm64 Debian VM
+# in the Android Linux Terminal ("the phone"). It runs only the simulated
+# camera and motor IOCs, using multi-arch (linux/amd64 + linux/arm64) generic
+# IOC images, so no qemu emulation is needed on arm64.
+#
+# This file is independent of compose.yaml: it shares the IOC instance configs
+# in services/*/config but nothing else, so the main deployment is unaffected.
+#
+# run from the repo root:
+#   ./phone-launch.sh        (starts these IOCs, then opens bobview)
+# or just the IOCs:
+#   docker compose -f compose-phone.yaml up -d
+#
+# Networking: the IOCs use the host network, so no gateways, port mappings or
+# init service are needed. Each IOC gets its own CA and PVA server ports so that
+# clients can reach both with plain unicast / TCP to 127.0.0.1:
+#
+#   bl01t-di-cam-01   CA 5064   PVA 5075
+#   bl01t-mo-sim-01   CA 6064   PVA 6075
+
+name: example-services-phone
+
+x-phone-ioc: &phone-ioc
+  labels:
+    ioc_group: bl01t
+    is_ioc: true
+    location: localhost
+  security_opt:
+    - label=disable
+  tty: true
+  stdin_open: true
+  restart: unless-stopped
+  network_mode: host
+  # no 'platform:' - pull the image variant that matches this host
+
+services:
+  bl01t-di-cam-01:
+    <<: *phone-ioc
+    image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2.11ec7-beta.1
+    environment:
+      IOCSH_PS1: bl01t-di-cam-01 >
+      IOC_NAME: bl01t-di-cam-01
+      IOC_PREFIX: BL01T-DI-CAM-01
+      IOC_LOCATION: localhost
+      BEAMLINE: bl01t
+      IOC_GROUP: bl01t
+      EPICS_CA_SERVER_PORT: 5064
+      EPICS_CA_REPEATER_PORT: 5065
+      EPICS_PVA_SERVER_PORT: 5075
+    volumes:
+      - ./services/bl01t-di-cam-01/config:/epics/ioc/config
+      - ./opi/auto-generated/bl01t-di-cam-01:/epics/opi
+      - ./autosave/bl01t-di-cam-01:/autosave
+
+  bl01t-mo-sim-01:
+    <<: *phone-ioc
+    image: ghcr.io/epics-containers/ioc-motorsim-runtime:R1-3ec3-beta.1
+    environment:
+      IOCSH_PS1: bl01t-mo-sim-01 >
+      IOC_NAME: bl01t-mo-sim-01
+      IOC_LOCATION: localhost
+      BEAMLINE: bl01t
+      IOC_GROUP: bl01t
+      EPICS_CA_SERVER_PORT: 6064
+      EPICS_CA_REPEATER_PORT: 5065
+      EPICS_PVA_SERVER_PORT: 6075
+    volumes:
+      - ./services/bl01t-mo-sim-01/config:/epics/ioc/config
+      - ./opi/auto-generated/bl01t-mo-sim-01:/epics/opi
+      - ./autosave/bl01t-mo-sim-01:/autosave
+
+  # bobview is not a service here: it is a native GUI binary on the phone and
+  # containerising it would only add display passthrough. ./phone-launch.sh
+  # runs this compose file and then launches bobview with the right client
+  # environment.

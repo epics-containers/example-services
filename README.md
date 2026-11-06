@@ -71,6 +71,21 @@ docker compose down
 
 NOTE: sometimes the pva-gateway will not terminate before `docker compose down` times out and you will see an error. If this happens then you can run `docker compose down` again and it should then remove the pva-gateway container.
 
+# Phone Deployment
+
+`compose-phone.yaml` is a separate, cut-down deployment for a single small host such as the arm64 Debian VM in the Android Linux Terminal. It runs only the camera and motor IOCs (`bl01t-di-cam-01`, `bl01t-mo-sim-01`) from multi-arch (amd64 + arm64) generic IOC images, reusing their configs in `services/*/config`. There are no gateways, phoebus or init service: the IOCs use the host network, each with its own ports (camera CA 5064 / PVA 5075, motor CA 6064 / PVA 6075).
+
+The screens are viewed with [bobview](https://github.com/gilesknap/bobview), which runs natively on the phone rather than in a container. If bobview is missing (or built for the wrong architecture), `phone-launch.sh` installs it into `~/.local` with bobview's own installer, which fetches the release build for the machine (aarch64 or x86_64). It may also need `sudo apt install libxkbcommon0 libwayland-client0 libegl1 libgl1-mesa-dri`. Then:
+
+```bash
+git clone https://github.com/epics-containers/example-services.git
+cd example-services
+./phone-launch.sh        # start the IOCs and open bobview on opi/demo.bob
+./phone-launch.sh stop   # stop the IOCs
+```
+
+`phone-launch.sh` makes sure the podman API service is running and sets `DOCKER_HOST` to its socket (set `USE_DOCKER=1` to use docker instead), then uses `docker compose` (or `podman compose`) with `compose-phone.yaml`, waits for the IOCs to write their auto-generated screens into `opi/auto-generated/` (which `demo.bob` links to), and runs bobview with the CA/PVA client settings pointing at the IOC ports. The IOCs keep running when bobview is closed; run the script again to reopen it. The main `compose.yaml` is unchanged by this.
+
 # Deploy To Beamline Servers
 
 TODO: although this will work for CA, there is not yet a solution for PVA. PVA UDP traffic will not route into a container. Two possible solutions are:
