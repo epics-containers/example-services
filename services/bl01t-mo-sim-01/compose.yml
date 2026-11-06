@@ -18,6 +18,7 @@ services:
     volumes:
       - ../../opi/auto-generated/bl01t-mo-sim-01:/epics/opi
       - ../../autosave/bl01t-mo-sim-01:/autosave
+      - ../../runtime/bl01t-mo-sim-01:/epics/runtime
 
     configs:
       - source: bl01t-mo-sim-01_config
