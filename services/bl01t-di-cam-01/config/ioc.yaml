@@ -24,6 +24,7 @@ entities:
       dbpf BL01T-DI-CAM-01:DET:AcquireTime 0.02
       dbpf BL01T-DI-CAM-01:ARR:EnableCallbacks 1
       dbpf BL01T-DI-CAM-01:PROC:EnableCallbacks 1
+      dbpf BL01T-EA-TST-02:ROISTAT:EnableCallbacks 1
       dbpf BL01T-DI-CAM-01:ROI:EnableCallbacks 1
       dbpf BL01T-DI-CAM-01:PVA:EnableCallbacks 1
       dbpf BL01T-DI-CAM-01:DET:Acquire 1
@@ -71,11 +72,21 @@ entities:
     YSIZE: 1024
     HIST_SIZE: 20
 
+  - type: ADCore.NDROIStat
+    PORT: DET.ROISTAT
+    P: BL01T-EA-TST-02
+    R: ":ROISTAT:"
+    NDARRAY_PORT: DET.PROC
+    MAX_ROIS: 4
+    # The NDAttributesFile waveform holds the XML of the stats published as
+    # NDAttributes: 1024 overflows with a few channels, 16384 does not
+    XMLSIZE: 16384
+
   - type: ADCore.NDFileHDF5
     PORT: DET.HDF
     P: BL01T-DI-CAM-01
     R: ":HDF5:"
-    NDARRAY_PORT: DET.PROC
+    NDARRAY_PORT: DET.ROISTAT
 
   - type: ADCore.NDFileTIFF
     PORT: DET.TIFF
@@ -89,13 +100,6 @@ entities:
     R: ":OVER:"
     NDARRAY_PORT: DET.PROC
     NOverlays: 4
-
-  - type: ADCore.NDROIStat
-    PORT: DET.ROISTAT
-    P: BL01T-EA-TST-02
-    R: ":ROISTAT:"
-    NDARRAY_PORT: DET.PROC
-    MAX_ROIS: 4
 
   - type: ADCore.NDFileNetCDF
     PORT: DET.CDF
